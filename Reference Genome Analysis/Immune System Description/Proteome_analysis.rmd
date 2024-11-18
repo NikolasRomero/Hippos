@@ -1,0 +1,28 @@
+## Proteome analisys from NCBI mHipAmp2.hap2 reference Genome
+
+## Load proteome .faa file from NCBI genome reeplace PATH_TO/protein.faa fopr your actual file
+hippo_fastap <- "~/Hippo/ncbi_dataset/data/GCF_030028045.1/protein.faa"
+
+## Load the proteome as string set
+protein_sequences <- readAAStringSet(fastap)
+
+## Extrac protein names from proteome
+sequence_names <- names(protein_sequences)
+
+## Function to extract sequence names containing relevant names
+Hippo_matching_sequences <- list()
+for (i in seq_along(terms)) {
+  term <- terms[i]
+  term_name <- terms_names[i]
+  Hippo_matching_names <- Hippo_sequence_names[grepl(term, Hippo_sequence_names, ignore.case = TRUE)]
+  if (length(Hippo_matching_names) > 0) {
+    Hippo_matching_sequences[[term_name]] <- list(
+      matches = Hippo_matching_names,
+      count = length(Hippo_matching_names)
+    )
+  }
+}
+
+
+## Excecute the function
+Hippo_matching_sequences
